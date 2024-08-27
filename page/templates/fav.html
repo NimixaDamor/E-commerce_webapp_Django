@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Wishlist {% endblock title%}
+{% block content %}
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 150px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">My Wishlist</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Wishlist</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+
+<!-- Wishlist Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+
+
+        <!-- Wishlist Products Start -->
+        <div class="col-lg-9 col-md-12">
+            <div class="row pb-3  justify-content-center">
+
+                {% if wishlist %}
+                {% for product in wishlist %}
+                <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+                    <div class="card product-item border-0 mb-4">
+                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                            <img class="img-fluid w-100" src="{{ product.image.url }}" alt="">
+                        </div>
+                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                            <h6 class="text-truncate mb-3">{{ product.name }}</h6>
+                            <div class="d-flex justify-content-center">
+                                <h6>₹{{ product.price }}</h6>
+                                {% if product.original_price %}
+                                <h6 class="text-muted ml-2">
+                                    <del>${{ product.original_price }}</del>
+                                </h6>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between bg-light border">
+
+
+                            <a href="/detail/{{ product.id }}/" class="btn btn-sm text-dark p-0"><i
+                                    class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+
+                            <a href="/remove_fav/{{ product.id }}/" class="btn btn-sm text-dark p-0">
+                                <i class="fas fa-heart-broken text-primary mr-1"></i>Remove from Wishlist
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+
+{% endblock content %}
